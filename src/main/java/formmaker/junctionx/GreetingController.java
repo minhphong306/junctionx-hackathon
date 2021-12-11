@@ -10,4 +10,9 @@ public class GreetingController {
     public String getGreet() {
         return "Hello Linh To <3";
     }
+
+    @RequestMapping("/testdb")
+    public String testDB() {
+        return  System.getenv("JDBC_DATABASE_URL");
+    }
 }

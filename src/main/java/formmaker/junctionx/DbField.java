@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DbField {
 
-    public static List<ModelField> GetListField(int limit, int offset) {
+    public static List<ModelField> GetListField(long formId, int limit, int offset) {
         List<ModelField> res = new ArrayList<>();
         Connection connection = null;
 
@@ -16,20 +16,20 @@ public class DbField {
             connection = DatabaseConfig.getConnection();
 
             Statement stmt = connection.createStatement();
-            String query = String.format("SELECT id, user_id, name, description FROM form LIMIT %d OFFSET %d", limit, offset);
+            String query = String.format("SELECT id, user_id, form_id, name, type, settings, required FROM field WHERE form_id = %d and is_deleted = 0 LIMIT %d OFFSET %d", formId, limit, offset);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 ModelField field = new ModelField();
                 field.setId(rs.getLong("id"));
                 field.setUser_id(rs.getLong("user_id"));
+                field.setForm_id(rs.getLong("form_id"));
                 field.setName(rs.getString("name"));
-                field.setRequired(rs.getBoolean("required"));
+                field.setType(rs.getString("type"));
                 field.setSettings(rs.getString("settings"));
+                field.setRequired(rs.getBoolean("required"));
 
                 res.add(field);
             }
-
-
         } catch (Exception e) {
             return null;
         }

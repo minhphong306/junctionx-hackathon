@@ -36,6 +36,31 @@ public class DbForm {
         return res;
     }
 
+    public static ModelForm GetForm(long id) {
+        ModelForm res = new ModelForm();
+        Connection connection = null;
+
+        try {
+            connection = DatabaseConfig.getConnection();
+
+            Statement stmt = connection.createStatement();
+            String query = String.format("SELECT id, user_id, name, description FROM form WHERE is_deleted = 0 and id = %d", id);
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                res.setId(rs.getLong("id"));
+                res.setName(rs.getString("name"));
+                res.setDescription(rs.getString("description"));
+                res.setUser_id(rs.getLong("user_id"));
+            }
+
+
+        } catch (Exception e) {
+            return null;
+        }
+
+        return res;
+    }
+
     public static boolean DeleteForm(long id) {
         Connection connection = null;
 

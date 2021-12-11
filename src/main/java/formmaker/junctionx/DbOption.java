@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DbOption {
 
-    public static List<ModelOption> GetListField(int limit, int offset) {
+    public static List<ModelOption> GetListOption(long formId, int limit, int offset) {
         List<ModelOption> res = new ArrayList<>();
         Connection connection = null;
 
@@ -16,15 +16,16 @@ public class DbOption {
             connection = DatabaseConfig.getConnection();
 
             Statement stmt = connection.createStatement();
-            String query = String.format("SELECT id, user_id, name, description FROM form LIMIT %d OFFSET %d", limit, offset);
+            String query = String.format("SELECT id, user_id, form_id, field_id, name, settings FROM options where form_id = %d and is_deleted = 0 LIMIT %d OFFSET %d", formId, limit, offset);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 ModelOption option = new ModelOption();
                 option.setId(rs.getLong("id"));
                 option.setUser_id(rs.getLong("user_id"));
+                option.setForm_id(rs.getLong("form_id"));
+                option.setField_id(rs.getLong("field_id"));
                 option.setName(rs.getString("name"));
                 option.setSettings(rs.getString("settings"));
-                option.setForm_id(rs.getLong("form_id"));
 
                 res.add(option);
             }

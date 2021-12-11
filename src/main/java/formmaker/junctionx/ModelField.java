@@ -5,9 +5,26 @@ public class ModelField {
     private long user_id;
     private long form_id;
     private String name;
+    private String type;
     private String settings;
     private boolean required;
-    private boolean isDeleted;
+    private boolean is_deleted;
+
+    public long getForm_id() {
+        return form_id;
+    }
+
+    public void setForm_id(long form_id) {
+        this.form_id = form_id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public long getId() {
         return id;
@@ -57,11 +74,11 @@ public class ModelField {
         this.required = required;
     }
 
-    public boolean isDeleted() {
-        return isDeleted;
+    public boolean isIs_deleted() {
+        return is_deleted;
     }
 
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+    public void setIs_deleted(boolean is_deleted) {
+        this.is_deleted = is_deleted;
     }
 }

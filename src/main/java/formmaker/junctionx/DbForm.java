@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DbForm {
@@ -30,6 +31,7 @@ public class DbForm {
 
 
         } catch (Exception e) {
+            System.out.println("Error when get forms: " + Arrays.toString(e.getStackTrace()));
             return null;
         }
 
@@ -55,6 +57,7 @@ public class DbForm {
 
 
         } catch (Exception e) {
+            System.out.println("Error when get form: " + Arrays.toString(e.getStackTrace()));
             return null;
         }
 

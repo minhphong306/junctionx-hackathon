@@ -30,6 +30,7 @@ public class DbField {
 
                 res.add(field);
             }
+            connection.close();
         } catch (Exception e) {
             return null;
         }

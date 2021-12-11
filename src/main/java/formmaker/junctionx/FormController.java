@@ -301,54 +301,16 @@ public class FormController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-//    @PostMapping(path = "/admin/forms", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<FormSingleResponse> createSing(@RequestBody FormSingleData newEmployee) {
-//        FormSingleResponse res = new FormSingleResponse();
-//        ModelForm form = DbForm.GetForm(id);
-//        if (form == null) {
-//            res.setMessage("Can't get form");
-//            return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//
-//        List<ModelField> fields = DbField.GetListField(id, 100, 0);
-//        List<ModelOption> options = DbOption.GetListOption(id, 100, 0);
-//
-//        // Map option to fields
-//        Map<Long, List<ModelOption>> optionMap = new HashMap<>();
-//
-//        for (int i = 0; i < options.size(); i++) {
-//            ModelOption item = options.get(i);
-//            List<ModelOption> optionList = optionMap.get(item.getField_id());
-//            if (optionList == null) {
-//                optionList = new ArrayList<>();
-//            }
-//
-//            optionList.add(item);
-//            optionMap.put(item.getField_id(), optionList);
-//        }
-//
-//        // Build list fields
-//        List<FormSingleField> resFields = new ArrayList<>();
-//        for (int i = 0; i < fields.size(); i++) {
-//            ModelField fieldItem = fields.get(i);
-//            List<ModelOption> optionList = optionMap.get(fieldItem.getId());
-//
-//            resFields.add(new FormSingleField(fieldItem.getId(), fieldItem.getUser_id(),
-//                    fieldItem.getForm_id(), fieldItem.getName(),
-//                    fieldItem.getType(), fieldItem.getSettings(),
-//                    fieldItem.isRequired(), optionList));
-//        }
-//
-//        FormSingleData data = new FormSingleData();
-//        data.setId(form.getId());
-//        data.setName(form.getName());
-//        data.setDescription(form.getDescription());
-//        data.setFields(resFields);
-//
-//        res.setSuccess(true);
-//        res.setData(data);
-//
+    @PostMapping(path = "/admin/forms", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FormSingleResponse> createSing(@RequestBody FormSingleData newEmployee) {
+        // Create form
+
+        // Create fields
+
+        // Create options
+
 //        return new ResponseEntity<>(res, HttpStatus.OK);
-//    }
+        return null;
+    }
 
 }

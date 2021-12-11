@@ -28,6 +28,7 @@ public class DbForm {
 
                 res.add(form);
             }
+            connection.close();
 
 
         } catch (Exception e) {
@@ -55,7 +56,7 @@ public class DbForm {
                 res.setUser_id(rs.getLong("user_id"));
             }
 
-
+            connection.close();
         } catch (Exception e) {
             System.out.println("Error when get form: " + Arrays.toString(e.getStackTrace()));
             return null;
@@ -77,10 +78,34 @@ public class DbForm {
                 return true;
             }
 
+            connection.close();
         } catch (Exception e) {
             return false;
         }
 
         return false;
     }
+
+    public static boolean CreateForm(ModelForm form) {
+        Connection connection = null;
+
+        try {
+            connection = DatabaseConfig.getConnection();
+
+            Statement stmt = connection.createStatement();
+            String query = String.format("INSERT INTO form (user_id, name, description) values (1, %s, %s)", form.getName(), form.getDescription());
+            int count = stmt.executeUpdate(query);
+            if (count > 0) {
+//                stmt.get
+                return true;
+            }
+
+            connection.close();
+        } catch (Exception e) {
+            return false;
+        }
+
+        return false;
+    }
+
 }

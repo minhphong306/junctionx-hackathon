@@ -2,8 +2,8 @@ package formmaker.junctionx;
 
 public class ModelField {
     private long id;
-    private long userId;
-    private long formId;
+    private long user_id;
+    private long form_id;
     private String name;
     private String settings;
     private boolean required;
@@ -17,20 +17,20 @@ public class ModelField {
         this.id = id;
     }
 
-    public long getUserId() {
-        return userId;
+    public long getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUser_id(long user_id) {
+        this.user_id = user_id;
     }
 
     public long getFormId() {
-        return formId;
+        return form_id;
     }
 
     public void setFormId(long formId) {
-        this.formId = formId;
+        this.form_id = formId;
     }
 
     public String getName() {

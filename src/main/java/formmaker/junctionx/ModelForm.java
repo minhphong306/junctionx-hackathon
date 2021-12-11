@@ -2,7 +2,7 @@ package formmaker.junctionx;
 
 public class ModelForm {
     private long id;
-    private long userId;
+    private long user_id;
     private String name;
     private String description;
 
@@ -14,12 +14,12 @@ public class ModelForm {
         this.id = id;
     }
 
-    public long getUserId() {
-        return userId;
+    public long getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUser_id(long user_id) {
+        this.user_id = user_id;
     }
 
     public String getName() {

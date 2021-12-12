@@ -97,10 +97,11 @@ public class DbForm {
         try {
             connection = DatabaseConfig.getConnection();
 
-
-            String query = String.format("INSERT INTO form (user_id, name, description) values (1, %s, %s)", name, description);
-            PreparedStatement statement = connection.prepareStatement(query,
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO form (user_id, name, description) values (1, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, name);
+            statement.setString(2, description);
+
             int count = statement.executeUpdate();
             if (count <= 0) {
                 System.out.println("No row inserted");
@@ -111,8 +112,7 @@ public class DbForm {
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     return generatedKeys.getLong(1);
-                }
-                else {
+                } else {
                     System.out.println("Creating user failed, no ID obtained.");
                     return 0;
                 }

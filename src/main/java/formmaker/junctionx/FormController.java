@@ -118,7 +118,7 @@ public class FormController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @PutMapping(path = "/admin/forms", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/admin/forms/update", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FormCreateResponse> updateForm(@RequestBody FormSingleData form) {
         // Update form
         long id = form.getId();

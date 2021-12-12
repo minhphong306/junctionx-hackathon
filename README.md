@@ -9,6 +9,9 @@ This repo is backend for JunctionX hackathon 2021 competition
 ![](assets/3.png)
 ![](assets/4.png)
 
+## Postman collection
+https://www.getpostman.com/collections/b08486d9194c494ddaa4
+
 ## Code structure
 
 ## Future update

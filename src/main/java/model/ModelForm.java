@@ -5,6 +5,7 @@ public class ModelForm {
     private long user_id;
     private String name;
     private String description;
+    private int status;
 
     public long getId() {
         return id;
@@ -36,5 +37,13 @@ public class ModelForm {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

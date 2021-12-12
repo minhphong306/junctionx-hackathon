@@ -71,6 +71,7 @@ public class FormController {
         data.setName(form.getName());
         data.setDescription(form.getDescription());
         data.setFields(resFields);
+        data.setStatus(form.getStatus());
 
         res.setSuccess(true);
         res.setData(data);
@@ -144,6 +145,19 @@ public class FormController {
         FormCreateResponse res = new FormCreateResponse();
 
         res.setData(data);
+        res.setSuccess(true);
+
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/admin/forms/update-status", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FormCreateResponse> updateFormStatus(@RequestBody FormSingleData form) {
+        // Update form
+        long id = form.getId();
+        long formId = DbForm.UpdateFormStatus(id, form.getStatus());
+
+
+        FormCreateResponse res = new FormCreateResponse();
         res.setSuccess(true);
 
         return new ResponseEntity<>(res, HttpStatus.OK);

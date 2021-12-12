@@ -50,13 +50,14 @@ public class DbForm {
             connection = DatabaseConfig.getConnection();
 
             Statement stmt = connection.createStatement();
-            String query = String.format("SELECT id, user_id, name, description FROM form WHERE is_deleted = 0 and id = %d", id);
+            String query = String.format("SELECT id, user_id, name, description, status FROM form WHERE is_deleted = 0 and id = %d", id);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 res.setId(rs.getLong("id"));
                 res.setName(rs.getString("name"));
                 res.setDescription(rs.getString("description"));
                 res.setUser_id(rs.getLong("user_id"));
+                res.setStatus(rs.getInt("status"));
             }
 
             connection.close();
@@ -155,6 +156,30 @@ public class DbForm {
 
         } catch (Exception e) {
             System.out.println("Error when update form: ");
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public static long UpdateFormStatus(long id, int status) {
+        Connection connection = null;
+
+        try {
+            connection = DatabaseConfig.getConnection();
+
+            PreparedStatement statement = connection.prepareStatement("UPDATE form SET status = ? WHERE id = ?",
+                    Statement.RETURN_GENERATED_KEYS);
+            statement.setInt(1, status);
+
+            int count = statement.executeUpdate();
+            if (count <= 0) {
+                System.out.println("No row inserted");
+                return 0;
+            }
+
+            connection.close();
+        } catch (Exception e) {
+            System.out.println("Error when update form status: ");
             e.printStackTrace();
             return 0;
         }

@@ -5,6 +5,7 @@ import java.util.List;
 public class FormSingleData {
     public long id;
     public long user_id;
+    public int status;
     public String name;
     public String description;
     public List<FormSingleField> fields;
@@ -47,5 +48,13 @@ public class FormSingleData {
 
     public void setFields(List<FormSingleField> fields) {
         this.fields = fields;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

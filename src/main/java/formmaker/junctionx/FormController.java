@@ -93,15 +93,15 @@ public class FormController {
     @PostMapping(path = "/admin/forms", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FormCreateResponse> createForm(@RequestBody FormSingleData form) {
         // Create form
-         long formId = DbForm.CreateForm(form.getName(), form.getDescription());
+        long formId = DbForm.CreateForm(form.getName(), form.getDescription());
 
         // Create fields
         for (FormSingleField field : form.getFields()) {
             long fieldId = DbField.CreateField(formId, field);
 
             // TODO: create options
-            if (field.getOptions() != null && field.getOptions().size() > 0 ) {
-                for(ModelOption option : field.getOptions()) {
+            if (field.getOptions() != null && field.getOptions().size() > 0) {
+                for (ModelOption option : field.getOptions()) {
                     DbOption.CreateOption(formId, fieldId, option);
                 }
             }
@@ -118,9 +118,10 @@ public class FormController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @PutMapping(path = "/admin/forms/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<FormCreateResponse> updateForm(@RequestBody FormSingleData form, @PathVariable(required = true) long id) {
+    @PutMapping(path = "/admin/forms", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FormCreateResponse> updateForm(@RequestBody FormSingleData form) {
         // Update form
+        long id = form.getId();
         long formId = DbForm.UpdateForm(id, form.getName(), form.getDescription());
 
         // Delete old field & create again
@@ -130,8 +131,8 @@ public class FormController {
         for (FormSingleField field : form.getFields()) {
             long fieldId = DbField.CreateField(formId, field);
 
-            if (field.getOptions() != null && field.getOptions().size() > 0 ) {
-                for(ModelOption option : field.getOptions()) {
+            if (field.getOptions() != null && field.getOptions().size() > 0) {
+                for (ModelOption option : field.getOptions()) {
                     DbOption.CreateOption(formId, fieldId, option);
                 }
             }

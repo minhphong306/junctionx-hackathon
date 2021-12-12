@@ -101,7 +101,7 @@ public class DbForm {
             String query = String.format("INSERT INTO form (user_id, name, description) values (1, %s, %s)", name, description);
             PreparedStatement statement = connection.prepareStatement(query,
                     Statement.RETURN_GENERATED_KEYS);
-            int count = statement.executeUpdate(query);
+            int count = statement.executeUpdate();
             if (count <= 0) {
                 System.out.println("No row inserted");
                 return 0;

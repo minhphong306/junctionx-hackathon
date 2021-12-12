@@ -17,6 +17,7 @@ import java.util.*;
 @RestController
 public class FormController {
 
+    @CrossOrigin(origins = "https://hackathon-junctionx.web.app")
     @GetMapping(path = "/admin/forms", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FormListResponse> getForms() {
         FormListResponse res = new FormListResponse();
@@ -28,6 +29,7 @@ public class FormController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "https://hackathon-junctionx.web.app")
     @GetMapping(path = "/admin/forms/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FormSingleResponse> getSingleForm(@PathVariable(required = true) long id) {
         FormSingleResponse res = new FormSingleResponse();
@@ -79,6 +81,7 @@ public class FormController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "https://hackathon-junctionx.web.app")
     @DeleteMapping(path = "/admin/forms/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FormDeleteResponse> getForms(@PathVariable(required = true) long id) {
         boolean deleteRes = DbForm.DeleteForm(id);
@@ -91,6 +94,7 @@ public class FormController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "https://hackathon-junctionx.web.app")
     @PostMapping(path = "/admin/forms", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FormCreateResponse> createForm(@RequestBody FormSingleData form) {
         // Create form
@@ -119,6 +123,7 @@ public class FormController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "https://hackathon-junctionx.web.app")
     @PostMapping(path = "/admin/forms/update", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FormCreateResponse> updateForm(@RequestBody FormSingleData form) {
         // Update form
@@ -150,6 +155,7 @@ public class FormController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "https://hackathon-junctionx.web.app")
     @PostMapping(path = "/admin/forms/update-status", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FormCreateResponse> updateFormStatus(@RequestBody FormSingleData form) {
         // Update form

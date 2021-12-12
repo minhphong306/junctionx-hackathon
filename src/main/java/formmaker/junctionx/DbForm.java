@@ -1,6 +1,7 @@
 package formmaker.junctionx;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -86,26 +87,36 @@ public class DbForm {
         return false;
     }
 
-    public static boolean CreateForm(ModelForm form) {
+    public static long CreateForm(String name, String description) {
         Connection connection = null;
 
         try {
             connection = DatabaseConfig.getConnection();
 
-            Statement stmt = connection.createStatement();
-            String query = String.format("INSERT INTO form (user_id, name, description) values (1, %s, %s)", form.getName(), form.getDescription());
-            int count = stmt.executeUpdate(query);
-            if (count > 0) {
-//                stmt.get
-                return true;
+
+            String query = String.format("INSERT INTO form (user_id, name, description) values (1, %s, %s)", name, description);
+            PreparedStatement statement = connection.prepareStatement(query,
+                    Statement.RETURN_GENERATED_KEYS);
+            int count = statement.executeUpdate(query);
+            if (count <= 0) {
+                System.out.println("No row inserted");
+                return 0;
             }
 
             connection.close();
-        } catch (Exception e) {
-            return false;
-        }
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getLong(1);
+                }
+                else {
+                    System.out.println("Creating user failed, no ID obtained.");
+                    return 0;
+                }
+            }
 
-        return false;
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
 }

@@ -1,236 +1,19 @@
 package formmaker.junctionx;
 
-import net.minidev.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import response.*;
 
 import java.util.*;
 
 @RestController
 public class FormController {
 
-    class FormResponse {
-        public boolean success;
-        public String message;
-        public List<ModelForm> data;
-
-        public boolean isSuccess() {
-            return success;
-        }
-
-        public void setSuccess(boolean success) {
-            this.success = success;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-
-        public List<ModelForm> getData() {
-            return data;
-        }
-
-        public void setData(List<ModelForm> data) {
-            this.data = data;
-        }
-    }
-
-    class FormSingleField {
-        private long id;
-        private long user_id;
-        private long form_id;
-        private String name;
-        private String type;
-        private String settings;
-        private boolean required;
-        private List<ModelOption> options;
-
-        public FormSingleField(long id, long user_id, long form_id, String name, String type, String settings, boolean required, List<ModelOption> options) {
-            this.id = id;
-            this.user_id = user_id;
-            this.form_id = form_id;
-            this.name = name;
-            this.type = type;
-            this.settings = settings;
-            this.required = required;
-            this.options = options;
-        }
-
-        public long getId() {
-            return id;
-        }
-
-        public void setId(long id) {
-            this.id = id;
-        }
-
-        public long getUser_id() {
-            return user_id;
-        }
-
-        public void setUser_id(long user_id) {
-            this.user_id = user_id;
-        }
-
-        public long getForm_id() {
-            return form_id;
-        }
-
-        public void setForm_id(long form_id) {
-            this.form_id = form_id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public String getSettings() {
-            return settings;
-        }
-
-        public void setSettings(String settings) {
-            this.settings = settings;
-        }
-
-        public boolean isRequired() {
-            return required;
-        }
-
-        public void setRequired(boolean required) {
-            this.required = required;
-        }
-
-        public List<ModelOption> getOptions() {
-            return options;
-        }
-
-        public void setOptions(List<ModelOption> options) {
-            this.options = options;
-        }
-    }
-
-    class FormSingleData {
-        public long id;
-        public long user_id;
-        public String name;
-        public String description;
-        public List<FormSingleField> fields;
-
-        public long getId() {
-            return id;
-        }
-
-        public void setId(long id) {
-            this.id = id;
-        }
-
-        public long getUser_id() {
-            return user_id;
-        }
-
-        public void setUser_id(long user_id) {
-            this.user_id = user_id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
-        public List<FormSingleField> getFields() {
-            return fields;
-        }
-
-        public void setFields(List<FormSingleField> fields) {
-            this.fields = fields;
-        }
-    }
-
-    class FormSingleResponse {
-        public boolean success;
-        public String message;
-        public FormSingleData data;
-
-        public boolean isSuccess() {
-            return success;
-        }
-
-        public void setSuccess(boolean success) {
-            this.success = success;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-
-        public FormSingleData getData() {
-            return data;
-        }
-
-        public void setData(FormSingleData data) {
-            this.data = data;
-        }
-    }
-
-    class FormDeleteResponse {
-        public boolean success;
-        public String message;
-
-        public boolean isSuccess() {
-            return success;
-        }
-
-        public void setSuccess(boolean success) {
-            this.success = success;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-
-    }
-
-
     @GetMapping(path = "/admin/forms", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<FormResponse> getForms() {
-        FormResponse res = new FormResponse();
+    public ResponseEntity<FormListResponse> getForms() {
+        FormListResponse res = new FormListResponse();
         List<ModelForm> forms = DbForm.GetListForm(100, 0);
 
         res.setSuccess(true);
@@ -302,15 +85,29 @@ public class FormController {
     }
 
     @PostMapping(path = "/admin/forms", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<FormSingleResponse> createSing(@RequestBody FormSingleData newEmployee) {
+    public ResponseEntity<FormCreateResponse> createForm(@RequestBody FormSingleData form) {
         // Create form
+         long formId = DbForm.CreateForm(form.getName(), form.getDescription());
 
         // Create fields
+        for (FormSingleField field : form.getFields()) {
+            long fieldId = DbField.CreateField(formId, field);
 
-        // Create options
+            // TODO: create options
+//            if (field.options.size() > 0 ) {
+//
+//            }
+        }
 
-//        return new ResponseEntity<>(res, HttpStatus.OK);
-        return null;
+        FormCreateData data = new FormCreateData();
+        data.setId(formId);
+
+        FormCreateResponse res = new FormCreateResponse();
+
+        res.setData(data);
+        res.setSuccess(true);
+
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
 }

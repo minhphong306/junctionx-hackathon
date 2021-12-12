@@ -1,6 +1,6 @@
 package response;
 
-import formmaker.junctionx.ModelForm;
+import model.ModelForm;
 
 import java.util.List;
 

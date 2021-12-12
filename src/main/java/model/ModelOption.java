@@ -1,30 +1,13 @@
-package formmaker.junctionx;
+package model;
 
-public class ModelField {
+public class ModelOption {
     private long id;
     private long user_id;
     private long form_id;
+    private long field_id;
     private String name;
-    private String type;
     private String settings;
-    private boolean required;
     private boolean is_deleted;
-
-    public long getForm_id() {
-        return form_id;
-    }
-
-    public void setForm_id(long form_id) {
-        this.form_id = form_id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public long getId() {
         return id;
@@ -42,12 +25,20 @@ public class ModelField {
         this.user_id = user_id;
     }
 
-    public long getFormId() {
+    public long getForm_id() {
         return form_id;
     }
 
-    public void setFormId(long formId) {
-        this.form_id = formId;
+    public void setForm_id(long form_id) {
+        this.form_id = form_id;
+    }
+
+    public long getField_id() {
+        return field_id;
+    }
+
+    public void setField_id(long field_id) {
+        this.field_id = field_id;
     }
 
     public String getName() {
@@ -64,14 +55,6 @@ public class ModelField {
 
     public void setSettings(String settings) {
         this.settings = settings;
-    }
-
-    public boolean isRequired() {
-        return required;
-    }
-
-    public void setRequired(boolean required) {
-        this.required = required;
     }
 
     public boolean isIs_deleted() {

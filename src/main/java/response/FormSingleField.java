@@ -1,6 +1,6 @@
 package response;
 
-import formmaker.junctionx.ModelOption;
+import model.ModelOption;
 
 import java.util.List;
 

@@ -1,4 +1,6 @@
-package formmaker.junctionx;
+package db;
+
+import model.ModelOption;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

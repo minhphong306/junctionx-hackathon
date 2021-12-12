@@ -1,4 +1,4 @@
-package formmaker.junctionx;
+package db;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

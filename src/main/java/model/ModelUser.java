@@ -1,4 +1,4 @@
-package formmaker.junctionx;
+package model;
 
 public class ModelUser {
     private long id;

@@ -1,4 +1,6 @@
-package formmaker.junctionx;
+package db;
+
+import model.ModelForm;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -81,6 +83,8 @@ public class DbForm {
 
             connection.close();
         } catch (Exception e) {
+            System.out.println("Error when delete form: ");
+            e.printStackTrace();
             return false;
         }
 
@@ -115,6 +119,8 @@ public class DbForm {
             }
 
         } catch (Exception e) {
+            System.out.println("Error when create form: ");
+            e.printStackTrace();
             return 0;
         }
     }

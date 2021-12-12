@@ -100,7 +100,7 @@ public class FormController {
             long fieldId = DbField.CreateField(formId, field);
 
             // TODO: create options
-            if (field.getOptions().size() > 0 ) {
+            if (field.getOptions() != null && field.getOptions().size() > 0 ) {
                 for(ModelOption option : field.getOptions()) {
                     DbOption.CreateOption(formId, fieldId, option);
                 }

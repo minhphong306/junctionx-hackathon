@@ -20,7 +20,7 @@ public class DbForm {
             connection = DatabaseConfig.getConnection();
 
             Statement stmt = connection.createStatement();
-            String query = String.format("SELECT id, user_id, name, description FROM form WHERE is_deleted = 0 LIMIT %d OFFSET %d", limit, offset);
+            String query = String.format("SELECT id, user_id, name, description, status FROM form WHERE is_deleted = 0 LIMIT %d OFFSET %d", limit, offset);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 ModelForm form = new ModelForm();
@@ -28,6 +28,7 @@ public class DbForm {
                 form.setName(rs.getString("name"));
                 form.setDescription(rs.getString("description"));
                 form.setUser_id(rs.getLong("user_id"));
+                form.setStatus(rs.getInt("status"));
 
                 res.add(form);
             }

@@ -48,19 +48,16 @@ public class DbField {
         try {
             connection = DatabaseConfig.getConnection();
 
-            String query = String.format("INSERT INTO field (" +
-                    "user_id, form_id, " +
-                    "name, type," +
-                    " settings, required) values" +
-                    " (1, %d, " +
-                    "%s, %s, " +
-                    "%s, %b)",
-                    formId, field.getName(),
-                    field.getType(), field.getSettings(),
-                    field.isRequired());
-            PreparedStatement statement = connection.prepareStatement(query,
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO field (user_id, form_id, name, type, settings, required) values (1, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
-            int count = statement.executeUpdate(query);
+
+            statement.setLong(1, formId);
+            statement.setString(2, field.getName());
+            statement.setString(3, field.getType());
+            statement.setString(4, field.getSettings());
+            statement.setInt(4, field.isRequired() ? 1 : 0);
+
+            int count = statement.executeUpdate();
             if (count <= 0) {
                 System.out.println("No row inserted");
                 return 0;
@@ -70,14 +67,15 @@ public class DbField {
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     return generatedKeys.getLong(1);
-                }
-                else {
+                } else {
                     System.out.println("Creating user failed, no ID obtained.");
                     return 0;
                 }
             }
 
         } catch (Exception e) {
+            System.out.println("Error when insert field");
+            e.printStackTrace();
             return 0;
         }
     }

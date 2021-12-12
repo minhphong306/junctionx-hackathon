@@ -55,7 +55,7 @@ public class DbField {
             statement.setString(2, field.getName());
             statement.setString(3, field.getType());
             statement.setString(4, field.getSettings());
-            statement.setInt(4, field.isRequired() ? 1 : 0);
+            statement.setInt(5, field.isRequired() ? 1 : 0);
 
             int count = statement.executeUpdate();
             if (count <= 0) {

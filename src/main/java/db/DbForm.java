@@ -125,4 +125,40 @@ public class DbForm {
         }
     }
 
+    public static long UpdateForm(long id, String name, String description) {
+        Connection connection = null;
+
+        try {
+            connection = DatabaseConfig.getConnection();
+
+            PreparedStatement statement = connection.prepareStatement("UPDATE form SET name = ?, description = ? WHERE id = ?",
+                    Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, name);
+            statement.setString(2, description);
+            statement.setLong(3, id);
+
+            int count = statement.executeUpdate();
+            if (count <= 0) {
+                System.out.println("No row inserted");
+                return 0;
+            }
+
+            connection.close();
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getLong(1);
+                } else {
+                    System.out.println("Creating user failed, no ID obtained.");
+                    return 0;
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error when update form: ");
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+
 }

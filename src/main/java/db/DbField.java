@@ -79,4 +79,39 @@ public class DbField {
             return 0;
         }
     }
+
+    public static long DeleteField(long formId) {
+        Connection connection = null;
+
+        try {
+            connection = DatabaseConfig.getConnection();
+
+            PreparedStatement statement = connection.prepareStatement("UPDATE field SET is_deleted = 1 WHERE form_id = ?",
+                    Statement.RETURN_GENERATED_KEYS);
+
+            statement.setLong(1, formId);
+
+            int count = statement.executeUpdate();
+            if (count <= 0) {
+                System.out.println("No row inserted");
+                return 0;
+            }
+
+            connection.close();
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getLong(1);
+                } else {
+                    System.out.println("Creating user failed, no ID obtained.");
+                    return 0;
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error when update field");
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
 }

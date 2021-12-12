@@ -118,4 +118,34 @@ public class FormController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @PutMapping(path = "/admin/forms/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FormCreateResponse> updateForm(@RequestBody FormSingleData form, @PathVariable(required = true) long id) {
+        // Update form
+        long formId = DbForm.UpdateForm(id, form.getName(), form.getDescription());
+
+        // Delete old field & create again
+        DbField.DeleteField(id);
+
+        // TODO: compare & only delete, update if necessary
+        for (FormSingleField field : form.getFields()) {
+            long fieldId = DbField.CreateField(formId, field);
+
+            if (field.getOptions() != null && field.getOptions().size() > 0 ) {
+                for(ModelOption option : field.getOptions()) {
+                    DbOption.CreateOption(formId, fieldId, option);
+                }
+            }
+        }
+
+        FormCreateData data = new FormCreateData();
+        data.setId(formId);
+
+        FormCreateResponse res = new FormCreateResponse();
+
+        res.setData(data);
+        res.setSuccess(true);
+
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
 }

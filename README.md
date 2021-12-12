@@ -6,6 +6,7 @@ This repo is backend for JunctionX hackathon 2021 competition
   - Java Spring boot
   - PostgreSQL
 - API of project available here: https://sleepy-falls-53919.herokuapp.com/admin/forms/
+- Demo of application available here: https://hackathon-junctionx.web.app/
 
 ## UI preview
 ![](assets/1.png)

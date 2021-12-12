@@ -170,6 +170,9 @@ public class DbForm {
             PreparedStatement statement = connection.prepareStatement("UPDATE form SET status = ? WHERE id = ?",
                     Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, status);
+            statement.setLong(2, id);
+
+            System.out.println("Query: " + "UPDATE form SET status = ? WHERE id = ?" + id + "," + status);
 
             int count = statement.executeUpdate();
             if (count <= 0) {

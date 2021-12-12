@@ -2,6 +2,10 @@ This repo is backend for JunctionX hackathon 2021 competition
 
 ## Project description
 - This application let user design form and dynamic generating form for end user.
+- Technology:
+  - Java Spring boot
+  - PostgreSQL
+- API of project available here: https://sleepy-falls-53919.herokuapp.com/admin/forms/
 
 ## UI preview
 ![](assets/1.png)
